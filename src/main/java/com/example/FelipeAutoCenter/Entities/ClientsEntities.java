@@ -3,26 +3,27 @@ package com.example.FelipeAutoCenter.Entities;
 import jakarta.persistence.*;
 
 @Entity
-@Table (name = "Clients")
+@Table(name = "Clients")
 public class ClientsEntities {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
     private String name;
     private String email;
     private String password;
-    private String cpfOrCnpj;
+
+    private String cpf;
 
     public ClientsEntities() {
 
     }
 
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -50,11 +51,12 @@ public class ClientsEntities {
         this.password = password;
     }
 
-    public String getCpfOrCnpj() {
-        return cpfOrCnpj;
+    public String getCpf() {
+        return cpf;
     }
 
-    public void setCpfOrCnpj(String cpfOrCnpj) {
-        this.cpfOrCnpj = cpfOrCnpj;
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
+
 }
