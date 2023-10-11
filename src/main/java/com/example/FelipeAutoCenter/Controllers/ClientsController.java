@@ -12,7 +12,6 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 
-
 @RestController
 public class ClientsController {
     @Autowired
@@ -34,12 +33,21 @@ public class ClientsController {
 
     @PutMapping(path = "/clients/update-client/{id}")
     public ResponseEntity UpdateClient(@PathVariable Long id, @RequestBody ClientsEntities client) {
-        Boolean response = clientService.update(id, client);
-        if (response) {
+        Boolean responsePut = clientService.update(id, client);
+        if (responsePut) {
             return ResponseEntity.ok().build();
         } else {
             return ResponseEntity.status(404).body("Client not find");
         }
     }
 
+    @DeleteMapping(path = "/clients/delete-client/{id}")
+    public ResponseEntity DeleteClient(@PathVariable Long id) {
+        Boolean responseDelete = clientService.delete(id);
+        if (responseDelete) {
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.status(404).body("Client not find");
+        }
+    }
 }

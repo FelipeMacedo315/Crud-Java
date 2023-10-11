@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.integration.IntegrationProperties;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.StyledEditorKit;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,6 +33,16 @@ public class ClientService {
         if (checkExist.isPresent()) {
             client.setId(id);
             clientsRepository.save(client);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public Boolean delete(Long id) {
+        Optional checkExist = clientsRepository.findById(id);
+        if (checkExist.isPresent()) {
+            clientsRepository.deleteById(id);
             return true;
         } else {
             return false;
