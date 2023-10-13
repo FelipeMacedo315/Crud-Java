@@ -2,9 +2,18 @@ package com.example.FelipeAutoCenter.Entities;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "Clients")
 public class ClientsEntities {
+
+    @ManyToOne
+    @JoinColumn(name = "forSale")
+    private AnnouncementEntities announcementEntities;
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
