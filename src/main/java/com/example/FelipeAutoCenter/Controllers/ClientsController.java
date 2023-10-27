@@ -18,13 +18,13 @@ public class ClientsController {
     private ClientService clientService;
 
     @GetMapping(path = "/clients/all-clients")
-    public ResponseEntity showAllClients() {
+    public ResponseEntity getAllClients() {
         List result = clientService.showAllClients();
         return ResponseEntity.ok(result);
     }
 
     @PostMapping(path = "/clients/create-client")
-    public ResponseEntity receiverInfoClient(@RequestBody ClientsEntities client) throws URISyntaxException {
+    public ResponseEntity postClient(@RequestBody ClientsEntities client) throws URISyntaxException {
         clientService.insertClient(client);
         URI baseURL = new URI("http://localhost:8080/clients/exact-client/");
         URI pathExactUser = URI.create(baseURL + client.getId().toString());

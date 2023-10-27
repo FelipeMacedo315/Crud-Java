@@ -9,11 +9,8 @@ import java.util.List;
 @Table(name = "Clients")
 public class ClientsEntities {
 
-    @ManyToOne
-    @JoinColumn(name = "forSale")
-    private AnnouncementEntities announcementEntities;
-
-
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
+    private List<AnnouncementEntities> allAds = new ArrayList<>();
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

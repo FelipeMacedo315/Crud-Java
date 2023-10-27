@@ -2,15 +2,15 @@ package com.example.FelipeAutoCenter.Entities;
 
 import jakarta.persistence.*;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 public class AnnouncementEntities {
 
-    @OneToMany(mappedBy = "announcementEntities")
-    private List<ClientsEntities> clientsEntities = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name = "id_owner")
+    private ClientsEntities owner;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idAnnouncement;
@@ -19,10 +19,23 @@ public class AnnouncementEntities {
     private Double price;
     private Double km;
     private String color;
-    private LocalDateTime year;
-    private LocalDateTime modelYear;
+    private Long year;
+    private Long modelYear;
 
-    public AnnouncementEntities() {
+    @Lob
+    @Column (columnDefinition = "LONGBLOB")
+    private List<byte[]> imagesVehicle;
+
+    public AnnouncementEntities(String brand, String model, Double price, Double km, String color, Long year, Long modelYear, ClientsEntities clientsEntities, List<byte[]> convertImages) {
+        this.brand = brand;
+        this.model = model;
+        this.price = price;
+        this.km = km;
+        this.color = color;
+        this.year = year;
+        this.modelYear = modelYear;
+        this.setOwner(clientsEntities);
+        this.setImagesVehicle(convertImages);
 
     }
 
@@ -74,19 +87,37 @@ public class AnnouncementEntities {
         this.color = color;
     }
 
-    public LocalDateTime getYear() {
+    public Long getYear() {
         return year;
     }
 
-    public void setYear(LocalDateTime year) {
+    public void setYear(Long year) {
         this.year = year;
     }
 
-    public LocalDateTime getModelYear() {
+    public Long getModelYear() {
         return modelYear;
     }
 
-    public void setModelYear(LocalDateTime modelYear) {
+    public void setModelYear(Long modelYear) {
         this.modelYear = modelYear;
     }
+
+    public ClientsEntities getOwner() {
+        return owner;
+    }
+
+    public void setOwner(ClientsEntities owner) {
+        this.owner = owner;
+    }
+
+    public List<byte[]> getImagesVehicle() {
+        return imagesVehicle;
+    }
+
+    public void setImagesVehicle(List<byte[]> imagesVehicle) {
+        this.imagesVehicle = imagesVehicle;
+    }
+
+
 }
