@@ -46,4 +46,10 @@ public class AnnouncementController {
             return ResponseEntity.status(404).body("Unable updated annoucement");
         }
     }
+
+    @DeleteMapping(path = "/ads/delete/id={id_ads}")
+    public ResponseEntity DeleteAnnoucement(@PathVariable Long id_ads) {
+        announcementService.deleteAnnoucement(id_ads);
+        return ResponseEntity.ok().body("The announcement has been deleted");
+    }
 }

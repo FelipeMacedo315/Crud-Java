@@ -32,6 +32,7 @@ public class AnnouncementEntities {
     public AnnouncementEntities() {
 
     }
+    // Constructor for POST annoucement
 
     public AnnouncementEntities(String brand, String description, String model, Double price, Double km, String color, Long year, Long modelYear, byte[] imagesVehicle, ClientsEntities clientsEntities) {
         this.brand = brand;
@@ -45,6 +46,8 @@ public class AnnouncementEntities {
         this.setImagesVehicle(imagesVehicle);
         this.setOwner(clientsEntities);
     }
+
+    // Contructor for  PATCH announcement
 
     public AnnouncementEntities(String brand, String description, String model, Double price, Double km, String color, Long year, Long modelYear, byte[] convertPatchImages, ClientsEntities clientsEntities, Long idAds) {
         this.brand = brand;
