@@ -2,7 +2,6 @@ package com.example.FelipeAutoCenter.Entities;
 
 import jakarta.persistence.*;
 
-import java.util.List;
 
 @Entity
 public class AnnouncementEntities {
@@ -15,6 +14,9 @@ public class AnnouncementEntities {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idAnnouncement;
     private String brand;
+
+    @Column(length = 500)
+    private String description;
     private String model;
     private Double price;
     private Double km;
@@ -22,21 +24,40 @@ public class AnnouncementEntities {
     private Long year;
     private Long modelYear;
 
-    @Lob
-    @Column (columnDefinition = "LONGBLOB")
-    private List<byte[]> imagesVehicle;
 
-    public AnnouncementEntities(String brand, String model, Double price, Double km, String color, Long year, Long modelYear, ClientsEntities clientsEntities, List<byte[]> convertImages) {
+    @Lob
+    @Column(columnDefinition = "LONGBLOB")
+    private byte[] imagesVehicle;
+
+    public AnnouncementEntities() {
+
+    }
+
+    public AnnouncementEntities(String brand, String description, String model, Double price, Double km, String color, Long year, Long modelYear, byte[] imagesVehicle, ClientsEntities clientsEntities) {
         this.brand = brand;
+        this.description = description;
         this.model = model;
         this.price = price;
         this.km = km;
         this.color = color;
         this.year = year;
         this.modelYear = modelYear;
+        this.setImagesVehicle(imagesVehicle);
         this.setOwner(clientsEntities);
-        this.setImagesVehicle(convertImages);
+    }
 
+    public AnnouncementEntities(String brand, String description, String model, Double price, Double km, String color, Long year, Long modelYear, byte[] convertPatchImages, ClientsEntities clientsEntities, Long idAds) {
+        this.brand = brand;
+        this.description = description;
+        this.model = model;
+        this.price = price;
+        this.km = km;
+        this.color = color;
+        this.year = year;
+        this.modelYear = modelYear;
+        this.setImagesVehicle(convertPatchImages);
+        this.setOwner(clientsEntities);
+        this.setIdAnnouncement(idAds);
     }
 
     public Long getIdAnnouncement() {
@@ -53,6 +74,14 @@ public class AnnouncementEntities {
 
     public void setBrand(String brand) {
         this.brand = brand;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getModel() {
@@ -111,11 +140,11 @@ public class AnnouncementEntities {
         this.owner = owner;
     }
 
-    public List<byte[]> getImagesVehicle() {
+    public byte[] getImagesVehicle() {
         return imagesVehicle;
     }
 
-    public void setImagesVehicle(List<byte[]> imagesVehicle) {
+    public void setImagesVehicle(byte[] imagesVehicle) {
         this.imagesVehicle = imagesVehicle;
     }
 
