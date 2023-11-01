@@ -26,6 +26,17 @@ public class AnnouncementService {
         return announcementRepository.findAll();
     }
 
+    public List<AnnouncementEntities> showMyAnnoucecements(Long id_owner) {
+        Optional<ClientsEntities> existOwner = clientsRepository.findById(id_owner);
+        List<AnnouncementEntities> myAnnoucements = announcementRepository.findByowner(existOwner.get());
+        if (!myAnnoucements.isEmpty()) {
+            return myAnnoucements;
+        } else {
+            return null;
+        }
+
+
+    }
 
     public Boolean createAds(String brand, String description, String model, Double price, Double km, String color, Long year, Long modelYear, Long id_owner, byte[] imagesVehicle) throws IOException {
         Optional<ClientsEntities> findOwner = clientsRepository.findById(id_owner);
@@ -54,4 +65,6 @@ public class AnnouncementService {
     public void deleteAnnoucement(Long idAds) {
         announcementRepository.deleteById(idAds);
     }
+
+
 }

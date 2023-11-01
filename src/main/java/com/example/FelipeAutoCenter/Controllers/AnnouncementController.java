@@ -25,11 +25,22 @@ public class AnnouncementController {
         return ResponseEntity.ok().body(allAnnouncement);
     }
 
+    @GetMapping(path = "/ads/show-myAnnouncements/owner={id_owner}")
+    public ResponseEntity ShowMyAnnouncements(@PathVariable Long id_owner) {
+        List<AnnouncementEntities> response = announcementService.showMyAnnoucecements(id_owner);
+        if (response != null) {
+            return ResponseEntity.ok().body(response);
+
+        } else {
+            return ResponseEntity.status(404).body("Your announcements not finded");
+        }
+    }
+
     @PostMapping(path = "/ads/create/{id_owner}")
-    public ResponseEntity PostAds(@RequestParam String brand, String description, String model, Double price, Double km, String color, Long year, Long modelYear, @RequestPart MultipartFile imageVehicle, @PathVariable Long id_owner) throws URISyntaxException, IOException {
+    public ResponseEntity PostAds(@RequestParam String brand, String description, String model, Double price, Double km, String color, Long year, Long modelYear, @RequestPart MultipartFile imagesVehicle, @PathVariable Long id_owner) throws URISyntaxException, IOException {
         URI uri = new URI("http://localhost:8080/ads/create/");
-        Boolean response = announcementService.createAds(brand, description, model, price, km, color, year, modelYear, id_owner, imageVehicle.getBytes());
-        if (response && !imageVehicle.isEmpty()) {
+        Boolean response = announcementService.createAds(brand, description, model, price, km, color, year, modelYear, id_owner, imagesVehicle.getBytes());
+        if (response) {
             return ResponseEntity.created(uri).body("Ads created with sucessfull");
         } else {
             return ResponseEntity.status(404).body("Ads not created");
