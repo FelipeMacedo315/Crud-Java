@@ -48,9 +48,9 @@ public class AnnouncementController {
     }
 
     @PatchMapping(path = "/ads/update/owner-{id_owner}/ads-{id_ads}")
-    public ResponseEntity UpdateAds(@RequestParam String brand, String description, String model, Double price, Double km, String color, Long year, Long modelYear, @RequestPart MultipartFile imageVehicle, @PathVariable Long id_owner, @PathVariable Long id_ads) throws IOException {
+    public ResponseEntity UpdateAds(@RequestParam String brand, String description, String model, Double price, Double km, String color, Long year, Long modelYear, @RequestPart MultipartFile imagesVehicle, @PathVariable Long id_owner, @PathVariable Long id_ads) throws IOException {
         System.out.println("ID CLIENT:" + id_owner + "ID ANUNCIO" + id_ads);
-        Boolean response = announcementService.patchAnnoucement(brand, description, model, price, km, color, year, modelYear, imageVehicle, id_owner, id_ads);
+        Boolean response = announcementService.patchAnnoucement(brand, description, model, price, km, color, year, modelYear, imagesVehicle, id_owner, id_ads);
         if (response) {
             return ResponseEntity.ok().body("Announcement update with sucessfull");
         } else {

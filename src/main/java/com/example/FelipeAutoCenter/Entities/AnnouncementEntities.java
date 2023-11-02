@@ -32,8 +32,8 @@ public class AnnouncementEntities {
     public AnnouncementEntities() {
 
     }
-    // Constructor for POST annoucement
 
+    // Constructor for POST annoucement
     public AnnouncementEntities(String brand, String description, String model, Double price, Double km, String color, Long year, Long modelYear, byte[] imagesVehicle, ClientsEntities clientsEntities) {
         this.brand = brand;
         this.description = description;
