@@ -19,7 +19,7 @@ public class AnnouncementController {
     @Autowired
     private AnnouncementService announcementService;
 
-    @GetMapping(path = "/ads/show-all-announcement")
+    @GetMapping(path = "/ads/show-all")
     public ResponseEntity ShowAllAnnouncement() {
         List<AnnouncementEntities> allAnnouncement = announcementService.ShowAll();
         return ResponseEntity.ok().body(allAnnouncement);

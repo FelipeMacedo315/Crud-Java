@@ -4,6 +4,8 @@ import com.example.FelipeAutoCenter.Entities.ClientsEntities;
 import com.example.FelipeAutoCenter.Services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -22,9 +24,12 @@ public class ClientsController {
         List result = clientService.showAllClients();
         return ResponseEntity.ok(result);
     }
-
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
     @PostMapping(path = "/clients/create")
     public ResponseEntity postClient(@RequestBody ClientsEntities client) throws URISyntaxException {
+
         clientService.insertClient(client);
         URI baseURL = new URI("http://localhost:8080/clients/exact-client/");
         URI pathExactUser = URI.create(baseURL + client.getId().toString());
