@@ -19,6 +19,7 @@ public class AnnouncementController {
     @Autowired
     private AnnouncementService announcementService;
 
+    @CrossOrigin(origins = "http://localhost:3000/")
     @GetMapping(path = "/ads/show-all")
     public ResponseEntity ShowAllAnnouncement() {
         List<AnnouncementEntities> allAnnouncement = announcementService.ShowAll();
@@ -37,9 +38,12 @@ public class AnnouncementController {
     }
 
     @PostMapping(path = "/ads/create/{id_owner}")
-    public ResponseEntity PostAds(@RequestParam String brand, String description, String model, Double price, Double km, String color, Long year, Long modelYear, @RequestPart MultipartFile imagesVehicle, @PathVariable Long id_owner) throws URISyntaxException, IOException {
+    public ResponseEntity PostAds(@RequestParam String brand, String description, String model, Double price,
+                                  Double km, String color, Long year, Long modelYear,
+                                  @RequestPart MultipartFile imagesVehicle, @PathVariable Long id_owner) throws URISyntaxException, IOException {
         URI uri = new URI("http://localhost:8080/ads/create/");
-        Boolean response = announcementService.createAds(brand, description, model, price, km, color, year, modelYear, id_owner, imagesVehicle.getBytes());
+        Boolean response = announcementService.createAds(brand, description, model, price, km, color, year, modelYear
+                , id_owner, imagesVehicle.getBytes());
         if (response) {
             return ResponseEntity.created(uri).body("Ads created with sucessfull");
         } else {
@@ -48,9 +52,13 @@ public class AnnouncementController {
     }
 
     @PatchMapping(path = "/ads/update/owner-{id_owner}/ads-{id_ads}")
-    public ResponseEntity UpdateAds(@RequestParam String brand, String description, String model, Double price, Double km, String color, Long year, Long modelYear, @RequestPart MultipartFile imagesVehicle, @PathVariable Long id_owner, @PathVariable Long id_ads) throws IOException {
+    public ResponseEntity UpdateAds(@RequestParam String brand, String description, String model, Double price,
+                                    Double km, String color, Long year, Long modelYear,
+                                    @RequestPart MultipartFile imagesVehicle, @PathVariable Long id_owner,
+                                    @PathVariable Long id_ads) throws IOException {
         System.out.println("ID CLIENT:" + id_owner + "ID ANUNCIO" + id_ads);
-        Boolean response = announcementService.patchAnnoucement(brand, description, model, price, km, color, year, modelYear, imagesVehicle, id_owner, id_ads);
+        Boolean response = announcementService.patchAnnoucement(brand, description, model, price, km, color, year,
+                modelYear, imagesVehicle, id_owner, id_ads);
         if (response) {
             return ResponseEntity.ok().body("Announcement update with sucessfull");
         } else {

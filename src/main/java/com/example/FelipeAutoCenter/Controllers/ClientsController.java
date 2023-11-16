@@ -16,6 +16,7 @@ import java.util.List;
 
 @RestController
 public class ClientsController {
+
     @Autowired
     private ClientService clientService;
 
@@ -24,9 +25,11 @@ public class ClientsController {
         List result = clientService.showAllClients();
         return ResponseEntity.ok(result);
     }
+
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
     @PostMapping(path = "/clients/create")
     public ResponseEntity postClient(@RequestBody ClientsEntities client) throws URISyntaxException {
 
