@@ -13,11 +13,10 @@ public class Security {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf(AbstractHttpConfigurer::disable).authorizeHttpRequests(authorize -> {
-
-            authorize.requestMatchers("/clients/create").permitAll();
             authorize.requestMatchers("/ads/show-all").permitAll();
-            authorize.anyRequest().authenticated();
-
+            authorize.requestMatchers("/clients/create").permitAll();
+            authorize.requestMatchers("/ads/create/{id_owner}").permitAll();
+            authorize.anyRequest().permitAll();
         });
         return httpSecurity.build();
 

@@ -1,6 +1,7 @@
 package com.example.FelipeAutoCenter.Controllers;
 
 import com.example.FelipeAutoCenter.Entities.AnnouncementEntities;
+import com.example.FelipeAutoCenter.Entities.ClientsEntities;
 import com.example.FelipeAutoCenter.Services.AnnouncementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,13 @@ public class AnnouncementController {
     private AnnouncementService announcementService;
 
     @CrossOrigin(origins = "http://localhost:3000/")
+
+    @PostMapping(path = "/image")
+    public ResponseEntity UploadImage(@RequestParam MultipartFile[] file) throws IOException {
+       Boolean response  = announcementService.upload(file);
+        return ResponseEntity.ok().body("image upload sucess");
+    }
+
     @GetMapping(path = "/ads/show-all")
     public ResponseEntity ShowAllAnnouncement() {
         List<AnnouncementEntities> allAnnouncement = announcementService.ShowAll();
@@ -40,10 +48,11 @@ public class AnnouncementController {
     @PostMapping(path = "/ads/create/{id_owner}")
     public ResponseEntity PostAds(@RequestParam String brand, String description, String model, Double price,
                                   Double km, String color, Long year, Long modelYear,
-                                  @RequestPart MultipartFile imagesVehicle, @PathVariable Long id_owner) throws URISyntaxException, IOException {
+                                  @RequestPart MultipartFile[] files, @PathVariable Long id_owner) throws URISyntaxException, IOException {
         URI uri = new URI("http://localhost:8080/ads/create/");
-        Boolean response = announcementService.createAds(brand, description, model, price, km, color, year, modelYear
-                , id_owner, imagesVehicle.getBytes());
+        Boolean response = announcementService.PostAds(brand, description, model, price, km, color, year, modelYear
+                , id_owner, files);
+
         if (response) {
             return ResponseEntity.created(uri).body("Ads created with sucessfull");
         } else {
