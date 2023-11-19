@@ -17,7 +17,7 @@ public class Upload {
             File imgVehicle = new File(pathGallery, img.getOriginalFilename());
             imgVehicle.createNewFile();
 
-            urlPathImgs.add(imgVehicle.getPath());
+            urlPathImgs.add(imgVehicle.getAbsolutePath());
         }
 
         return urlPathImgs;

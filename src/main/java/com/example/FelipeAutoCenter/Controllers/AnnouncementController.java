@@ -22,11 +22,6 @@ public class AnnouncementController {
 
     @CrossOrigin(origins = "http://localhost:3000/")
 
-    @PostMapping(path = "/image")
-    public ResponseEntity UploadImage(@RequestParam MultipartFile[] file) throws IOException {
-       Boolean response  = announcementService.upload(file);
-        return ResponseEntity.ok().body("image upload sucess");
-    }
 
     @GetMapping(path = "/ads/show-all")
     public ResponseEntity ShowAllAnnouncement() {

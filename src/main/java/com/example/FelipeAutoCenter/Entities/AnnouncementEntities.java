@@ -2,6 +2,7 @@ package com.example.FelipeAutoCenter.Entities;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -26,7 +27,8 @@ public class AnnouncementEntities {
     private Long year;
     private Long modelYear;
 
-    private List<String> images_ads;
+    @Column(name = "images", length = 1000)
+    private List<String> images_ads = new ArrayList<>();
 
 
     public AnnouncementEntities() {

@@ -31,21 +31,6 @@ public class AnnouncementService {
     @Autowired
     private Upload upload;
 
-    public Boolean upload(MultipartFile[] file) throws IOException {
-        File gallery = new File("Gallery");
-//        File imgCar = new File(gallery,file.getOriginalFilename());
-        File imgCar = null;
-        for (MultipartFile img : file) {
-            imgCar = new File(gallery, img.getOriginalFilename() + "user545454");
-            imgCar.createNewFile();
-        }
-        if (!gallery.exists()) {
-            gallery.mkdir();
-        }
-
-        return true;
-    }
-
     public List<AnnouncementEntities> ShowAll() {
         return announcementRepository.findAll();
     }
